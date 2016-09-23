@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "symbols.h"
 
 extern void scrambleAll(Class clz);
 extern void genObfuscatedStrings();
 extern void extractNSVarsFromFile(NSString* file);
+
+extern void prepPath();
+extern void prepFile();
+extern void writeStr(NSString* format, ...);
+extern void endWriting();
