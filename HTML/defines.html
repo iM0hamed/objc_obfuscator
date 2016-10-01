@@ -1,0 +1,100 @@
+<html>
+<HEAD>
+<TITLE>scramble defines</TITLE>
+
+</HEAD>
+<body>
+	<form action="" name="linkForm" onsubmit="return myFunction(this.link)" method="POST">
+	  <textarea onclick="this.select()" type="text" name="link" style="width:100%;height:100%;border:none;text-align:center" autocomplete="off" onkeypress="return myFunction(this)">
+	  </textarea>
+	</form>
+
+	<script>
+	function handleKeyPress(param) {
+	    var key = window.event.keyCode;
+
+	    // If the user has pressed enter
+	    if (key == 13) {
+			myFunction(param);
+	        return false;
+	    }
+	    else {
+	        return false;
+	    }
+	}
+	function array_flip( trans )
+	{
+	    var key, tmp_ar = {};
+
+	    for ( key in trans )
+	    {
+	        if ( trans.hasOwnProperty( key ) )
+	        {
+	            tmp_ar[trans[key]] = key;
+	        }
+	    }
+
+	    return tmp_ar;
+	}
+	function randomStrWithLength(length){
+	    var text = "";
+	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+	    for( var i=0; i < length; i++ )
+	        text += possible.charAt(Math.floor(Math.random() * possible.length));
+		
+	    return text;
+	}
+	function myFunction(box) {
+	    var key = window.event.keyCode;
+
+	    // If the user has pressed enter
+	    if (key != 13) {
+			return false;
+		}
+		var symbols = {};
+
+		var mystr = box.value;
+		var defines = mystr.split("\n");
+		var spc = " ";
+		var tb = "\t";
+		var outstr = "";
+		//debugger;
+
+		//outstr += "#ifndef symbols_h\n";
+		//outstr += "#define symbols_h\n";
+		
+	    for ( key in defines ){
+			if(defines[key].indexOf("#define") !== -1)
+	    	{
+				defines[key] = defines[key].split(" ");
+				defines[key][2] = randomStrWithLength(12);
+				
+				outstr += defines[key][0] + spc + defines[key][1] + spc + defines[key][2] + "\n";
+				
+			}
+			else{
+				outstr += defines[key] + "\n";
+			}
+	    }
+		//outstr += "#endif\n";
+		
+		box.value = outstr;
+		
+		box.select();
+		/*
+		try {
+		    var successful = document.execCommand('copy');
+		    var msg = successful ? 'successful' : 'unsuccessful';
+		    console.log('Copying text command was ' + msg);
+		  } catch (err) {
+		    console.log('Oops, unable to copy');
+		  }//*/
+
+		return false;
+	}
+	
+	
+	</script>
+</body>
+</html>

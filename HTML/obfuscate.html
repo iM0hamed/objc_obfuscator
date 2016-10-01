@@ -1,0 +1,112 @@
+<html>
+<HEAD>
+<TITLE>obfuscate</TITLE>
+
+</HEAD>
+<body>
+	<form action="" name="linkForm" onsubmit="return myFunction(this.link)">
+	  <input onclick="this.select()" type="text" name="link" style="width:100%;height:100%;border:none;text-align:center" value="text to obfuscate" autocomplete="off">
+	</form>
+
+	<script>
+	function array_flip( trans )
+	{
+	    var key, tmp_ar = {};
+
+	    for ( key in trans )
+	    {
+	        if ( trans.hasOwnProperty( key ) )
+	        {
+	            tmp_ar[trans[key]] = key;
+	        }
+	    }
+
+	    return tmp_ar;
+	}
+	function myFunction(box) {
+		var symbols = {};
+
+		symbols["space"] = " ";
+		symbols["point"] = ".";
+		symbols["dash"] = "-";
+		symbols["comma"] = ",";
+		symbols["semicolon"] = ";";
+		symbols["colon"] = ":";
+		symbols["apostrophe"] = "'";
+		symbols["quotation"] = "\"";
+		symbols["plus"] = "+";
+		symbols["equals"] = "=";
+		symbols["paren_left"] = "(";
+		symbols["paren_right"] = ")";
+		symbols["asterisk"] = "*";
+		symbols["ampersand"] = "&";
+		symbols["caret"] = "^";
+		symbols["percent"] = "%";
+		symbols["$"] = "$";
+		symbols["pound"] = "#";
+		symbols["at"] = "@";
+		symbols["exclamation"] = "!";
+		symbols["question_mark"] = "?";
+		symbols["back_slash"] = "\\";
+		symbols["forward_slash"] = "/";
+		symbols["curly_left"] = "{";
+		symbols["curly_right"] = "}";
+		symbols["bracket_left"] = "[";
+		symbols["bracket_right"] ="]";
+		symbols["bar"] = "|";
+		symbols["less_than"] = "<";
+		symbols["greater_than"] = ">";
+		symbols["underscore"] = "_";
+		symbols["tilde"] = "~";
+		symbols["_"] = symbols["space"];
+		symbols["dot"] = symbols["point"];
+
+		var flippedSymbols = array_flip(symbols);
+
+		var mystr = box.value;
+		var outstr = "Obfuscate.";
+
+		mystr = mystr.replace('@"', '');
+		mystr = mystr.replace(/["]+/g, '')
+				
+		for (var i=0; i < mystr.length; i++) { 
+			var char = mystr.charAt(i);
+			if (!isNaN(parseInt(char))){
+				//is a number
+				outstr += "_";
+		        outstr += char;
+			}
+			else{
+				if(char in flippedSymbols)
+					outstr += flippedSymbols[char];
+				else{
+					if(char === "I")
+						outstr += "_I";
+					else
+						outstr += char;
+				}
+			}
+		    console.log(char); 
+	        outstr += ".";//seperator
+		}
+		outstr = outstr.substr(0, outstr.lastIndexOf("."));
+
+		box.value = outstr;
+		
+		box.select();
+		/*
+		try {
+		    var successful = document.execCommand('copy');
+		    var msg = successful ? 'successful' : 'unsuccessful';
+		    console.log('Copying text command was ' + msg);
+		  } catch (err) {
+		    console.log('Oops, unable to copy');
+		  }//*/
+
+		return false;
+	}
+	
+	
+	</script>
+</body>
+</html>
